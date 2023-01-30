@@ -1,13 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Discussion from './components/Discussion/Discussion.vue';
+</script>
 
 <template>
-  <main>
-    <h1>test</h1>
-  </main>
+  <Discussion />
 </template>
 
-<style scoped lang="scss">
-h1 {
-  color: red;
-}
-</style>
+<style scoped lang="scss"></style>

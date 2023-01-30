@@ -11,6 +11,8 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "moment": "^2.29.4",
+    "pinia": "^2.0.29",
     "vue": "^3.2.45"
   },
   "devDependencies": {
