@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import CommentItem from './CommentItem.vue';
-import type { IComment } from '@/types';
 import { useCommentStore } from '@/store/comment-store';
 
 const commentStore = useCommentStore();
@@ -8,11 +7,6 @@ const commentStore = useCommentStore();
 
 <template>
   <ul>
-    <!-- <CommentItem
-      v-for="comment in commentStore.comments"
-      :key="comment.id"
-      :comment="comment"
-    /> -->
     <li class="item" v-for="comment in commentStore.comments" :key="comment.id">
       <CommentItem
         :class="['comment', comment.replies.length > 0 ? 'has-reply' : '']"
@@ -33,12 +27,16 @@ const commentStore = useCommentStore();
 @import '@/assets/styles/variables';
 
 .item {
+  padding: 24px;
+
+  &:not(:last-of-type) {
+    border-bottom: 2px solid $c-gray-200;
+  }
 }
 
 .comment {
   display: flex;
   flex-direction: column;
-  margin-top: 16px;
   position: relative;
 
   &.has-reply::before {

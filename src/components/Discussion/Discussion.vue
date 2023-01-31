@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import type { IDiscussion, IUser } from '@/types';
 import AddComment from '../comment/AddComment.vue';
 import CommentList from '../comment/CommentList.vue';
 </script>
 
 <template>
   <div class="wrapper">
-    <AddComment placeholder="Start a discussion" class="add-comment" />
+    <AddComment
+      placeholder="Start a discussion"
+      class="add-comment"
+      :target-id="undefined"
+    />
     <CommentList class="comment-list" />
   </div>
 </template>
@@ -16,13 +19,13 @@ import CommentList from '../comment/CommentList.vue';
 
 @mixin box {
   border-radius: 8px;
-  padding: 24px;
 }
 .wrapper {
   width: 600px;
 
   .add-comment {
     @include box;
+    padding: 24px;
     background-color: #fafbfc;
   }
 

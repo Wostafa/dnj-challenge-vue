@@ -1,15 +1,18 @@
 <script setup lang="ts">
-import type { IComment } from '@/types';
+import type { IComment, IDiscussion } from '@/types';
 import ProfilePhoto from '../ProfilePhoto.vue';
 import ThumbUp from '@/assets/icons/ThumbUp.vue';
 import moment from 'moment';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useCommentStore } from '@/store/comment-store';
 
+import AddComment from './AddComment.vue';
+
 const props = defineProps<{
-  comment: IComment;
+  comment: IDiscussion | IComment;
 }>();
 
+const showReply = ref(false);
 const commentStore = useCommentStore();
 
 const dateFromNow = computed(() =>
@@ -22,6 +25,10 @@ const exactDate = computed(() =>
 
 const onLikeOrUnlike = () => {
   commentStore.likeOrUnlike(props.comment.id);
+};
+
+const onReply = () => {
+  showReply.value = !showReply.value;
 };
 </script>
 
@@ -43,11 +50,19 @@ const onLikeOrUnlike = () => {
             <ThumbUp />
             <strong>{{ comment.likes }}</strong>
           </button>
-          <button class="reply">Reply</button>
+          <button v-if="'replies' in comment" class="reply" @click="onReply">
+            Reply
+          </button>
         </div>
       </div>
     </div>
     <slot />
+    <AddComment
+      v-if="showReply"
+      placeholder="Reply"
+      class="add-comment"
+      :target-id="comment.id"
+    />
   </div>
 </template>
 
@@ -85,8 +100,8 @@ const onLikeOrUnlike = () => {
 
     .like {
       background-color: $background;
-      fill: #909ab4;
-      color: $color-text;
+      fill: $c-slate-400;
+      color: $c-text;
       font-weight: 700;
       display: flex;
       align-items: center;
@@ -118,6 +133,11 @@ const onLikeOrUnlike = () => {
       border-radius: 12px;
       padding: 4px 10px;
     }
+  }
+
+  .add-comment {
+    margin-left: 64px;
+    margin-top: 16px;
   }
 }
 </style>

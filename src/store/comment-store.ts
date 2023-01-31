@@ -6,9 +6,8 @@ import type { IDiscussion, IComment } from '@/types';
 export const useCommentStore = defineStore('comment', () => {
   const comments = ref<IDiscussion[]>(discussions);
 
-  const likeOrUnlike = (id: number) => {
+  function getComment(id: number) {
     let comment: IDiscussion | IComment | undefined;
-
     comments.value.some((c) => {
       // comment
       if (c.id === id) {
@@ -25,7 +24,11 @@ export const useCommentStore = defineStore('comment', () => {
         });
       }
     });
+    return comment;
+  }
 
+  const likeOrUnlike = (id: number) => {
+    const comment = getComment(id);
     if (comment) {
       if (comment.iLikedIt) {
         comment.likes--;
@@ -37,8 +40,28 @@ export const useCommentStore = defineStore('comment', () => {
     }
   };
 
+  const addComment = (
+    targetId: number | undefined,
+    comment: IComment | IDiscussion
+  ) => {
+    // comment is a reply to another comment
+    if (targetId) {
+      const targetComment = getComment(targetId);
+      if (targetComment) {
+        if ('replies' in targetComment) {
+          targetComment.replies.push(comment);
+        }
+      }
+    }
+    // comment is a stand-alone comment
+    else if ('replies' in comment) {
+      comments.value.push(comment);
+    }
+  };
+
   return {
     comments,
     likeOrUnlike,
+    addComment,
   };
 });
