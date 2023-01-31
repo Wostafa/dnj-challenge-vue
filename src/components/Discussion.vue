@@ -16,21 +16,17 @@ import CommentList from './comment/CommentList.vue';
 
 <style scoped lang="scss">
 @import '@/assets/styles/variables';
-
-@mixin box {
-  border-radius: 8px;
-}
 .wrapper {
   width: 600px;
 
   .add-comment {
-    @include box;
+    border-radius: 8px;
     padding: 24px;
     background-color: #fafbfc;
   }
 
   .comment-list {
-    @include box;
+    border-radius: 8px;
     margin-top: 4px;
     background-color: white;
   }
