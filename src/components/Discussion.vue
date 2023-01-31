@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import AddComment from '../comment/AddComment.vue';
-import CommentList from '../comment/CommentList.vue';
+import AddComment from './comment/AddComment.vue';
+import CommentList from './comment/CommentList.vue';
 </script>
 
 <template>

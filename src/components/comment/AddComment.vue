@@ -16,7 +16,7 @@ const userStore = useUserStore();
 const commentStore = useCommentStore();
 
 const onAddComment = () => {
-  if (!textarea.value || !textarea.value.trim()) {
+  if (!textarea.value.trim()) {
     return;
   }
   const comment: IDiscussion | IComment = {
@@ -27,7 +27,7 @@ const onAddComment = () => {
     text: textarea.value,
     user: userStore.user,
   };
-  // comment is not a reply
+  // when comment is level-1, it can have replies
   if (!props.targetId) {
     (comment as IDiscussion).replies = [];
   }
@@ -39,7 +39,7 @@ const onAddComment = () => {
 
 <template>
   <div class="wrapper">
-    <ProfilePhoto :user="userStore.user" class="profile-photo" />
+    <ProfilePhoto :user="userStore.user" />
     <textarea :placeholder="placeholder" v-model="textarea" />
     <button title="send" @click="onAddComment">
       <Send />
@@ -53,6 +53,7 @@ const onAddComment = () => {
 .wrapper {
   display: flex;
   gap: 16px;
+  align-items: center;
 
   textarea {
     border-radius: 6px;
@@ -61,8 +62,8 @@ const onAddComment = () => {
     outline: 0;
     width: 100%;
     resize: vertical;
-    min-height: 45px;
-    height: 45px;
+    min-height: 46px;
+    height: 46px;
     color: $c-text;
 
     &:focus {
@@ -79,7 +80,7 @@ const onAddComment = () => {
     border-radius: 6px;
     padding-left: 10px;
     padding-right: 10px;
-    fill: $c-slate-400;
+    fill: $c-slate-500;
     height: 45px;
     background-color: $c-gray-100;
     margin-left: -8px;

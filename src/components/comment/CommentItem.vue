@@ -27,7 +27,7 @@ const onLikeOrUnlike = () => {
   commentStore.likeOrUnlike(props.comment.id);
 };
 
-const onReply = () => {
+const onShowReply = () => {
   showReply.value = !showReply.value;
 };
 </script>
@@ -50,7 +50,11 @@ const onReply = () => {
             <ThumbUp />
             <strong>{{ comment.likes }}</strong>
           </button>
-          <button v-if="'replies' in comment" class="reply" @click="onReply">
+          <button
+            v-if="'replies' in comment"
+            class="reply"
+            @click="onShowReply"
+          >
             Reply
           </button>
         </div>

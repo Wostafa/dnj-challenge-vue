@@ -21,6 +21,7 @@ export const useCommentStore = defineStore('comment', () => {
             comment = r;
             return true;
           }
+          return false;
         });
       }
     });
